@@ -16,6 +16,12 @@ export class RegistrationServiceService {
     const options = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post('http://localhost:8082/api/registerUser', user1, { headers: options });
   }
+//registerProduct
+registerProduct(product:any):Observable<any>{
+  const options = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.http.post('http://localhost:8082/api/registerProduct', product, { headers: options });
+}
+
 
   getProducts(){
     const httpOptions = {
@@ -28,11 +34,20 @@ export class RegistrationServiceService {
     return this.http.get('http://localhost:8082/api/getAllProducts',httpOptions);
 }
 //not correct....!
-addToCart(productId:number,userId:number):Observable<any>{
-  const options = new HttpHeaders({ 'Content-Type': 'application/json' });
-  return this.http.post('http://localhost:8082/api/addtoCart/',productId);
+// addToCart(item:any):Observable<any>{
+//   const options = new HttpHeaders({ 'Content-Type': 'application/json' });
+//   return this.http.post('http://localhost:8082/api/addToCart/',item);
 
 
+// }
+addToCart(userId : number,productid : number){
+  const httpOptions = {
+    headers: new HttpHeaders(
+    { 
+       'Content-Type': 'application/json'
+    })
+}
+  return this.http.post('http://localhost:8082/api/addToCart/'+userId+"/"+productid,httpOptions);
 }
   getProductsById(id : number){
     const httpOptions = {
@@ -66,6 +81,10 @@ getCartById(id : number){
 }
   return this.http.get('http://localhost:8082/api/getCart/'+id);
     
+}
+///deleteProduct/
+deleteItem(userId : number,productid : number){
+  return this.http.delete('http://localhost:8082/api/deleteItem/'+userId+"/"+productid);
 }
 
 adminlogin(user1:any):Observable<any>{

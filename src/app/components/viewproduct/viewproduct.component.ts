@@ -11,20 +11,22 @@ export class ViewproductComponent implements OnInit {
   // product: Product|undefined;
   loggeduser:any;
   product: any;
+  productIdFromRoute:any;
   constructor(
     private service: RegistrationServiceService,
     private route: ActivatedRoute,
     private router: Router
     //  private cartService: CartService
+  
   ) { }
 
   ngOnInit() {
     
     const routeParams = this.route.snapshot.paramMap;
-    const productIdFromRoute = Number(routeParams.get('productId'));
-console.log(productIdFromRoute);
+    this.productIdFromRoute = Number(routeParams.get('productId'));
+console.log(this.productIdFromRoute);
     // Find the product that correspond with the id provided in route.
-    this.service.getProductsById(productIdFromRoute).subscribe({
+    this.service.getProductsById(this.productIdFromRoute).subscribe({
 
       next: (val) => { this.product = val },
       error: (val) => { console.log(val) },
@@ -32,7 +34,7 @@ console.log(productIdFromRoute);
     }
     )
     //  products.find(product => product.id === productIdFromRoute);
-    console.log(this.product);
+   // console.log(val);
     this.loggeduser=sessionStorage.getItem("loggedname");
     if(this.loggeduser != null){
             this.user1=true;
@@ -45,9 +47,15 @@ console.log(productIdFromRoute);
     }
   }
 
-  addToCart(product: any) {
-    this.service.addToCart(product.productId,this.loggeduser);
-    window.alert('Your product has been added to the cart!');
+  addToCart(productIdSelected: any) {
+    this.service.addToCart( this.loggeduser,this.productIdFromRoute).subscribe({
 
+      next: (val) => {  },
+      error: (val) => { console.log(val) },
+
+    }
+    )
+    alert('Your product has been added to the cart!');
+    this.router.navigate(['/cart'])
   }
 }

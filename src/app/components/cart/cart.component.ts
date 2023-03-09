@@ -10,7 +10,8 @@ export class CartComponent implements OnInit {
   loggeduser:any;
  loggedId:any;
   public product:any =[];
-  public grandTotal !:number;
+ // public grandTotal = this.product.price;
+  
   constructor(private service: RegistrationServiceService, private router: Router) { }
 
   ngOnInit(  ): void {
@@ -19,7 +20,8 @@ export class CartComponent implements OnInit {
     if(this.loggeduser != null){
       this.service.getCartById(this.loggeduser).subscribe({
 
-        next: (val) => { this.product = val },
+        next: (val) => { this.product = val 
+        console.log(this.product)},
         error: (val) => { console.log(val) },
   
       }
@@ -35,8 +37,24 @@ export class CartComponent implements OnInit {
   emptycart(){
 
   }
-  removeItem(){
-
-  }
-
-}
+  removeItem(item1 :any){
+  alert("product removed!");
+      this.service.deleteItem(this.loggeduser,item1.productid).subscribe({
+        next: (val) => { console.log("item deleted")
+         },
+        error: (val) => { console.log("deletion failed") },
+  
+      })
+      
+      if(this.loggeduser != null){
+        this.service.getCartById(this.loggeduser).subscribe({
+  
+          next: (val) => { this.product = val 
+       
+            console.log(this.product)},
+          error: (val) => { console.log(val) },
+    
+        }
+        )}
+        this.router.navigate(['/cart'])
+    }}

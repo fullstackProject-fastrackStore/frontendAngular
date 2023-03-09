@@ -46,8 +46,9 @@ this.service.adminlogin(this.registerForm.value).subscribe({
     alert("invalid details!! ");
     this.router.navigate(['adimlogin']);
     this.registerForm = this.formBuilder.group({
-      email: ['', [Validators.required,Validators.email]],
-      password: ['', Validators.required],
+      adminEmail: ['', [Validators.required,Validators.email]],
+      adminPassword: ['', Validators.required],
+      
     });
   
   },

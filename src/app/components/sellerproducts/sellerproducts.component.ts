@@ -22,20 +22,15 @@ export class SellerproductsComponent implements OnInit {
 
     }
     )
-    
-  }
-    update(value: any) {
-      this.updateFormView=true;
-      this.registerForm.setValue({
-        productName: value.productName,
-        description: value.description,
-        image: value.image,
-        price: value.price
-      });
-      this.id = value.Productid;
+    this.registerForm = this.formBuilder.group({
+      productName: ['', [Validators.required]],
+      image: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', Validators.required],
       
-      //this.updateFormView = true
-    }
+    });
+  }
+    
     delete(id: number) {
       this.service.deleteStudent(id).subscribe({
         next: (val) => { this.productDetails = val },
@@ -44,13 +39,16 @@ export class SellerproductsComponent implements OnInit {
       })
       alert("successfully deleted the successfully!")
     }
+    //registerProductPage
+    addProduct(){
+       this.updateFormView = true;
+    }
     apply(){
-
-      this.service.update(this.id,this.registerForm.value).subscribe({
-        next(value) {
-        console.log(value);
-         
-       },
+//registerProduct
+      this.service.registerProduct(this.registerForm.value).subscribe({
+        next(value) {}
      })
+     alert("product added to the list");
+     this.updateFormView=false;
     }
   }

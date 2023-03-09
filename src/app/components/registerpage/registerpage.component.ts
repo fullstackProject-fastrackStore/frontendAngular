@@ -25,11 +25,22 @@ export class RegisterpageComponent implements OnInit {
 
   apply(){
     // console.log(this.registerForm.value);
-     this.submitted=true
+     
     this.service.registerUser(this.registerForm.value).subscribe({
-       next(value) {
-       console.log(value);
-        
+       next:(value)=> {
+       console.log(value); 
+       this.submitted=true;
+      },
+      error: (val) => { 
+        console.log(val);
+        alert("user is already registered with this email");
+        this.registerForm = this.formBuilder.group({
+          email: ['', [Validators.required,Validators.email]],
+          password: ['', Validators.required],
+          address: ['', Validators.required],
+          name: ['', Validators.required],
+          
+        });
       },
     })
 
