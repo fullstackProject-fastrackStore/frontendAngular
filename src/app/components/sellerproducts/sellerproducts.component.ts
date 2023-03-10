@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup ,Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 import { RegistrationServiceService } from 'src/app/service/registration-service.service';
 
 @Component({
@@ -11,8 +12,9 @@ export class SellerproductsComponent implements OnInit {
   registerForm!: FormGroup;
   updateFormView: boolean = false;
   productDetails: any
+  username:any;
   id:any;
-  constructor(private service: RegistrationServiceService, private formBuilder: FormBuilder) { }
+  constructor(private service: RegistrationServiceService, private formBuilder: FormBuilder,private router: Router) { }
 
   ngOnInit(): void {
     this.service.getProducts().subscribe({
@@ -22,6 +24,10 @@ export class SellerproductsComponent implements OnInit {
 
     }
     )
+    this.username=sessionStorage.getItem("loggedname");
+    if(this.username == null){
+      this.router.navigate(['/adimlogin']);
+     }
     this.registerForm = this.formBuilder.group({
       productName: ['', [Validators.required]],
       image: ['', Validators.required],
@@ -30,7 +36,17 @@ export class SellerproductsComponent implements OnInit {
       
     });
   }
+  logout(){
     
+    // if(this.username != null){
+    //   this.router.navigate(['/login']);
+    //  }
+    
+    sessionStorage.clear();
+    alert("logged out successfully"); 
+    this.router.navigate(['/adimlogin']);   
+  }
+
     delete(id: number) {
 
       this.service.delete(id).subscribe({
@@ -54,6 +70,13 @@ export class SellerproductsComponent implements OnInit {
     //registerProductPage
     addProduct(){
        this.updateFormView = true;
+       this.registerForm = this.formBuilder.group({
+        productName: ['', [Validators.required]],
+        image: ['', Validators.required],
+        description: ['', Validators.required],
+        price: ['', Validators.required],
+        
+      });
 
        
     }

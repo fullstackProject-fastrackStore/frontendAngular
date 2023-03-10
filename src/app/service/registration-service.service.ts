@@ -63,6 +63,9 @@ addToCart(userId : number,productid : number){
   delete(productid : number){
     return this.http.delete('http://localhost:8082/api/deleteProduct/'+productid);
   }
+  deleteAllCartProducts(userId : number){
+    return this.http.delete('http://localhost:8082/api/deleteAllItem/'+userId);
+  }
   update(productid :number,product :any){
     console.log(productid);
     

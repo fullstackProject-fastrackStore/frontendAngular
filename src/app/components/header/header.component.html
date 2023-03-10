@@ -10,7 +10,7 @@
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a  routerLink="/adimlogin" class="nav-link">Seller</a>
+              <a  routerLink="/adimlogin" class="nav-link" [hidden]="flag">Seller</a>
             </li>&nbsp;&nbsp;
             <li class="nav-item" [hidden]="flag">
                 <div class="dropdown" style="font-size: 24px; font-family: Georgia, 'Times New Roman', Times, serif">

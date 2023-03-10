@@ -45,6 +45,27 @@ export class CartComponent implements OnInit {
     
   }
   emptycart(){
+    this.service.deleteAllCartProducts(this.loggeduser).subscribe({
+      next: (val) => { 
+        console.log("All items deleted");
+        if(this.loggeduser != null){
+          this.service.getCartById(this.loggeduser).subscribe({
+    
+            next: (val) => { this.product = val 
+              this.grandTotal=0;
+              console.log(this.product)
+              this.product.forEach((a:any)=>{
+                console.log(a.price);
+                
+                this.grandTotal+=parseInt(a.price);
+               })},
+            error: (val) => { console.log(val) },
+      
+          }
+          )}
+           },
+    error: (val) => { console.log("deletion failed") },
+    })
 
   }
   removeItem(item1 :any){
@@ -56,12 +77,18 @@ export class CartComponent implements OnInit {
             this.service.getCartById(this.loggeduser).subscribe({
       
               next: (val) => { this.product = val 
-           
-                console.log(this.product)},
+                this.grandTotal=0;
+                console.log(this.product)
+                this.product.forEach((a:any)=>{
+                  console.log(a.price);
+                  
+                  this.grandTotal+=parseInt(a.price);
+                 })},
               error: (val) => { console.log(val) },
         
             }
             )}
+            
             this.router.navigate(['/cart'])
             alert("product removed!");
          },

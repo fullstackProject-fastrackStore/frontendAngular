@@ -14,40 +14,56 @@ productDetails:any;
   submitted!: boolean;
   loggeduser:any;
   public product:any =[];
+  placed:boolean=false;
   constructor(private formBuilder: FormBuilder, private router: Router,private service: RegistrationServiceService) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       address: ['', Validators.required],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required]],
       pincode: ['', Validators.required],
       
     });
     
     this.loggeduser=sessionStorage.getItem("loggedname");
    // this.loggedId =sessionStorage.getItem("userId");
-    if(this.loggeduser != null){
-      this.service.getCartById(this.loggeduser).subscribe({
-
-        next: (val) => { this.product = val 
-        console.log(this.product)},
-        error: (val) => { console.log(val) },
+   
+      if(this.loggeduser != null){
+        this.service.getCartById(this.loggeduser).subscribe({
   
-      }
-      )}
-
-      this.product.map((a:any)=>{
-        this.grandTotal+=a.price;
-       })
-           
+          next: (val) => { this.product = val 
+            this.grandTotal=0;
+            console.log(this.product)
+            this.product.forEach((a:any)=>{
+              console.log(a.price);
+             
+              this.grandTotal+=parseInt(a.price);
+             })},
+          error: (val) => { console.log(val) },
+    
+        }
+        )}  
+        else{
+          alert("please login first!");
+          this.router.navigate(['/login'])
+        }
     }
+  cancel(){
+    this.router.navigate(['/cart']);
+  }
   
   apply(){
-
-  }
-  orderPlaced(){
-    alert("order placed successfully!")
-    
+   
+    this.service.deleteAllCartProducts(this.loggeduser).subscribe({
+      next: (val) => { 
+        console.log("All items deleted");
+       
+        alert("order placed successfully! you will recieve a message shortly!")
+        this.submitted=true;
+        //this.router.navigate(['/'])
+           },
+    error: (val) => { console.log("deletion failed") },
+    })
   }
 }

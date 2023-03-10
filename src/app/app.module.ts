@@ -15,6 +15,7 @@ import { CustomPipePipe } from './pipes/custom-pipe.pipe';
 import { CartComponent } from './components/cart/cart.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { CheckoutpageComponent } from './components/checkoutpage/checkoutpage.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CheckoutpageComponent } from './components/checkoutpage/checkoutpage.co
     CustomPipePipe,
     CartComponent,
     AdminLoginComponent,
-    CheckoutpageComponent
+    CheckoutpageComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
