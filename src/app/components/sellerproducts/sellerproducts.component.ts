@@ -25,7 +25,11 @@ export class SellerproductsComponent implements OnInit {
     }
     )
     this.username=sessionStorage.getItem("loggedname");
-    if(this.username == null){
+    if(this.username < 100){
+      
+      sessionStorage.clear();
+      this.username=null;
+      alert("you are logged out! DONOT ACT SMART!")
       this.router.navigate(['/adimlogin']);
      }
     this.registerForm = this.formBuilder.group({
