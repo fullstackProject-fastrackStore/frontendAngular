@@ -60,7 +60,7 @@ addToCart(userId : number,productid : number){
       
   }
 
-  deleteStudent(productid : number){
+  delete(productid : number){
     return this.http.delete('http://localhost:8082/api/deleteProduct/'+productid);
   }
   update(productid :number,product :any){
@@ -82,7 +82,7 @@ getCartById(id : number){
   return this.http.get('http://localhost:8082/api/getCart/'+id);
     
 }
-///deleteProduct/
+///delete Product fromm cart/
 deleteItem(userId : number,productid : number){
   return this.http.delete('http://localhost:8082/api/deleteItem/'+userId+"/"+productid);
 }

@@ -14,6 +14,7 @@ import { SellerproductsComponent } from './components/sellerproducts/sellerprodu
 import { CustomPipePipe } from './pipes/custom-pipe.pipe';
 import { CartComponent } from './components/cart/cart.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
+import { CheckoutpageComponent } from './components/checkoutpage/checkoutpage.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AdminLoginComponent } from './components/admin-login/admin-login.compon
     SellerproductsComponent,
     CustomPipePipe,
     CartComponent,
-    AdminLoginComponent
+    AdminLoginComponent,
+    CheckoutpageComponent
   ],
   imports: [
     BrowserModule,

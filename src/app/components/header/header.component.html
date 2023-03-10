@@ -12,10 +12,10 @@
             <li class="nav-item">
               <a  routerLink="/adimlogin" class="nav-link">Seller</a>
             </li>&nbsp;&nbsp;
-            <li class="nav-item">
+            <li class="nav-item" [hidden]="flag">
                 <div class="dropdown" style="font-size: 24px; font-family: Georgia, 'Times New Roman', Times, serif">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     Welcome!
+                     Login
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a  class="dropdown-item" routerLink="/login">User</a>
@@ -32,7 +32,7 @@
         <div class="align-item-center d-flex">
 
 
-            <button class="btn btn-dark" style="margin: right 10px;" (click)="logout()">
+            <button class="btn btn-dark" style="margin: right 10px;" [hidden]="!flag" (click)="logout()">
               Logout
                <span style="font-size: 24px; font-family: Georgia, 'Times New Roman', Times, serif;"></span>
            </button>

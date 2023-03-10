@@ -32,23 +32,59 @@ export class SellerproductsComponent implements OnInit {
   }
     
     delete(id: number) {
-      this.service.deleteStudent(id).subscribe({
-        next: (val) => { this.productDetails = val },
-        error: (val) => { console.log(val) },
+
+      this.service.delete(id).subscribe({
+        next: (val) => { 
+          console.log("inside next") ;
+        this.service.getProducts().subscribe({
+
+          next: (val) => { this.productDetails = val },
+          error: (val) => { console.log(val) },
+    
+        }
+        )
+        alert("successfully deleted the successfully!");
+        },
+        error: (val) => { console.log("inside error") },
   
       })
-      alert("successfully deleted the successfully!")
+      
+      
     }
     //registerProductPage
     addProduct(){
        this.updateFormView = true;
+
+       
     }
     apply(){
-//registerProduct
-      this.service.registerProduct(this.registerForm.value).subscribe({
-        next(value) {}
-     })
-     alert("product added to the list");
-     this.updateFormView=false;
+       //registerProduct
+       this.service.registerProduct(this.registerForm.value).subscribe({
+        next: (val) => { 
+          console.log("inside next") ;
+          alert("successfully added the product successfully!");
+        this.updateFormView=false;
+        this.service.getProducts().subscribe({
+
+          next: (val) => { this.productDetails = val },
+          error: (val) => { console.log(val) },
+    
+        }
+        )
+        
+        },
+        error: (val) => { console.log("inside error") },
+  
+      })
+      
+      
+
+    //   this.service.registerProduct(this.registerForm.value).subscribe({
+    //     next(value) {
+          
+    //     }
+    //  })
+    //  alert("product added to the list");
+    //  this.updateFormView=false;
     }
   }

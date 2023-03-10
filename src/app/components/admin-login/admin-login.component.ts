@@ -25,7 +25,7 @@ export class AdminLoginComponent implements OnInit {
   }
 
   login(){
-this.service.adminlogin(this.registerForm.value).subscribe({
+ this.service.adminlogin(this.registerForm.value).subscribe({
   next: (val) => { 
     console.log(val);
     this.userDetails = val 

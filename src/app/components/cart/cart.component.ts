@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
   loggeduser:any;
  loggedId:any;
+ grandTotal:number=0;
   public product:any =[];
  // public grandTotal = this.product.price;
   
@@ -21,11 +22,20 @@ export class CartComponent implements OnInit {
       this.service.getCartById(this.loggeduser).subscribe({
 
         next: (val) => { this.product = val 
-        console.log(this.product)},
+        console.log(this.product)
+        this.product.forEach((a:any)=>{
+          console.log(a.price);
+          this.grandTotal+=parseInt(a.price);
+         })
+        //this.grandTotal+=this.product.price;
+        
+      },
         error: (val) => { console.log(val) },
   
       }
       )
+      
+      
            
     }
     else{
@@ -38,23 +48,25 @@ export class CartComponent implements OnInit {
 
   }
   removeItem(item1 :any){
-  alert("product removed!");
+ 
       this.service.deleteItem(this.loggeduser,item1.productid).subscribe({
-        next: (val) => { console.log("item deleted")
+        next: (val) => { console.log("item deleted");
+          
+          if(this.loggeduser != null){
+            this.service.getCartById(this.loggeduser).subscribe({
+      
+              next: (val) => { this.product = val 
+           
+                console.log(this.product)},
+              error: (val) => { console.log(val) },
+        
+            }
+            )}
+            this.router.navigate(['/cart'])
+            alert("product removed!");
          },
         error: (val) => { console.log("deletion failed") },
   
       })
-      
-      if(this.loggeduser != null){
-        this.service.getCartById(this.loggeduser).subscribe({
-  
-          next: (val) => { this.product = val 
-       
-            console.log(this.product)},
-          error: (val) => { console.log(val) },
     
-        }
-        )}
-        this.router.navigate(['/cart'])
     }}
